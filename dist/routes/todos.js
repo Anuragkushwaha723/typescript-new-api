@@ -7,15 +7,17 @@ router.get('/', (req, res, next) => {
     res.status(201).json({ todos: todos });
 });
 router.post('/todo', (req, res, next) => {
+    const Body = req.body;
     const newTodo = {
         id: new Date().toISOString(),
-        text: req.body.text
+        text: Body.text
     };
     todos.push(newTodo);
     res.status(201).json({ todos: newTodo });
 });
 router.post('/todoDelete', (req, res, next) => {
-    const todoId = req.body.id;
+    const Body = req.body;
+    const todoId = Body.id;
     const findTodoIndex = todos.findIndex(ele => {
         return todoId === ele.id;
     });
@@ -37,8 +39,9 @@ router.post('/todoDelete', (req, res, next) => {
     }
 });
 router.post('/todoEdit', (req, res, next) => {
-    const todoId = req.body.id;
-    const todoText = req.body.text;
+    const Body = req.body;
+    const todoId = Body.id;
+    const todoText = Body.text;
     const newTodo = {
         id: todoId,
         text: todoText
